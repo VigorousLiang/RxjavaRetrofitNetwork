@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">RxjavaRetrofitNetwork</string>
+    <string name="str_download">download</string>
+    <string name="str_cancel">cancel</string>
+</resources>
