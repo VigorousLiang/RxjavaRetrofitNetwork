@@ -99,6 +99,11 @@ public class UploadActivity extends BaseActivity {
                     public void onError(Throwable t) {
                         Log.e("upload", "error" + t.getMessage());
                     }
+
+                    @Override
+                    public void update(double progress, boolean done) {
+                        Log.e("upload", "uploading..." + progress);
+                    }
                 });
 
     }

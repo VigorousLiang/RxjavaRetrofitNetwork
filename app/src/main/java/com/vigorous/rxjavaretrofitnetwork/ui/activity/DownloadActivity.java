@@ -84,7 +84,7 @@ public class DownloadActivity extends BaseActivity {
         //设置下载配置信息
         NetWorkDownloadConfiguration config = new NetWorkDownloadConfiguration();
         config.setRewriteIfFileExist(true);
-        
+
         AsyncDownloadManager asyncDownloadManager = AsyncDownloadManager
                 .getInstance(getApplicationContext());
         asyncDownloadManager.startDownload(config, downloadInfo,

@@ -18,4 +18,11 @@ public interface AsyncUploadListener {
      * 完成下载
      */
      void onError(Throwable t);
+
+    /**
+     * 上传进度回调
+     * @param progress
+     * @param done
+     */
+    void update(double progress, boolean done);
 }

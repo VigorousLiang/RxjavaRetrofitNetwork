@@ -8,6 +8,7 @@ import com.vigorous.asynchronized.network.config.NetWorkUploadConfiguration;
 import com.vigorous.asynchronized.network.data.NetWorkRequestConst;
 import com.vigorous.asynchronized.network.data.upload.UploadFileType;
 import com.vigorous.asynchronized.network.data.upload.UploadInfo;
+import com.vigorous.asynchronized.network.data.upload.UploadRequestBody;
 import com.vigorous.asynchronized.network.exception.DownUploadWithoutWifiException;
 import com.vigorous.asynchronized.network.exception.ExternalStorageReadPermissionException;
 import com.vigorous.asynchronized.network.exception.UploadFileNotExistException;
@@ -108,6 +109,7 @@ public class AsyncUploadManager {
         RequestBody requestFile = RequestBody
                 .create(MediaType.parse("multipart/form-data"), file);
 
+        UploadRequestBody uploadRequestBody=new UploadRequestBody(requestFile,uploadListener);
         // 获取文件后缀名
         String prefix = uploadInfo.getFilePath()
                 .substring(uploadInfo.getFilePath().lastIndexOf(".") + 1);
@@ -115,7 +117,7 @@ public class AsyncUploadManager {
         // MultipartBody.Part
         MultipartBody.Part body = MultipartBody.Part.createFormData(
                 UploadFileType.fileSuffixName2ContentType(prefix),
-                file.getName(), requestFile);
+                file.getName(), uploadRequestBody);
 
         // 添加描述
         RequestBody description = RequestBody.create(

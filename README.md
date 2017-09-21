@@ -6,4 +6,5 @@
 
 ### The main functions of the current module are: 
 * Network post/get request
-* Breakpoint download
+* Breakpoint download with rate of progress
+* File upload with rate of progress
