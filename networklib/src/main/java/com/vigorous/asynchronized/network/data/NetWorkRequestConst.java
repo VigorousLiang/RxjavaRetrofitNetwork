@@ -16,8 +16,11 @@ public class NetWorkRequestConst {
 
     public final static String RESPONSE_TIME_OUT_STR = "Network error";
     public final static String DOWNLOAD_PARAM_INVALID = "Download param invalid";
+    public final static String UPLOAD_PARAM_INVALID = "Upload param invalid";
     public final static String DOWNLOAD_FILE_ALREADY_EXIST = "Download file already exist";
+    public final static String UPLOAD_FILE_NOT_EXIST = "Upload file not exist";
     public final static String EXTERNAL_STORAGE_WRITE_PERMISSION_INVALID = "External storage write permission invalid";
+    public final static String EXTERNAL_STORAGE_READ_PERMISSION_INVALID = "External storage read permission invalid";
     public final static String WIFI_UNAVAILABLE = "WIFI is unavailable";
     /*
     Base response param

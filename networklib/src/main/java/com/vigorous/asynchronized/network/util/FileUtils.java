@@ -22,7 +22,7 @@ public class FileUtils {
                 return false;
             }
         } catch (Exception e) {
-            // TODO: handle exception
+            e.printStackTrace();
             return false;
         }
         return true;

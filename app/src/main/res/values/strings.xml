@@ -1,6 +1,8 @@
 <resources>
     <string name="app_name">RxjavaRetrofitNetwork</string>
     <string name="str_download">download</string>
+    <string name="str_upload">upload</string>
     <string name="str_cancel">cancel</string>
     <string name="title_activity_download">DownloadActivity</string>
+    <string name="title_activity_upload">UploadActivity</string>
 </resources>

@@ -27,7 +27,8 @@ public class MainActivity extends BaseActivity {
     Button mBtnExample;
     @BindView(R.id.btn_download)
     Button mBtnDownload;
-
+    @BindView(R.id.btn_upload)
+    Button mBtnUpload;
 
     protected void setContentView() {
         super.setContentView();
@@ -72,7 +73,12 @@ public class MainActivity extends BaseActivity {
         intent.setClass(MainActivity.this,DownloadActivity.class);
         startActivity(intent);
     }
-
+    @OnClick(R.id.btn_upload)
+    void toUpload() {
+        Intent intent=new Intent();
+        intent.setClass(MainActivity.this,UploadActivity.class);
+        startActivity(intent);
+    }
     /**
      * network request success callback
      * 

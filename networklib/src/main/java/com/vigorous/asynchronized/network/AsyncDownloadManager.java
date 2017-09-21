@@ -12,7 +12,7 @@ import com.vigorous.asynchronized.network.download.AsyncDownloadObserver;
 import com.vigorous.asynchronized.network.download.DownloadInterceptor;
 import com.vigorous.asynchronized.network.exception.DownloadFileExistException;
 import com.vigorous.asynchronized.network.exception.DownloadParamInvaildException;
-import com.vigorous.asynchronized.network.exception.DownloadWithoutWifiException;
+import com.vigorous.asynchronized.network.exception.DownUploadWithoutWifiException;
 import com.vigorous.asynchronized.network.exception.ExternalStorageWritePermissionException;
 import com.vigorous.asynchronized.network.exception.HttpTimeException;
 import com.vigorous.asynchronized.network.listener.AsyncDownloadProgressListener;
@@ -107,7 +107,7 @@ public class AsyncDownloadManager {
         if (!configuration.isContinueIfWifiUnavailable() && NetworkUtil
                 .getNetworkState(mContext) != NetworkUtil.NETWORK_WIFI) {
             if (listener != null) {
-                listener.onError(new DownloadWithoutWifiException(
+                listener.onError(new DownUploadWithoutWifiException(
                         NetWorkRequestConst.WIFI_UNAVAILABLE));
             }
             return;
