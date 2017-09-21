@@ -1,1 +1,1 @@
-include ':app', ':rxjavaretrofitnetworklib'
+include ':app', ':networklib'

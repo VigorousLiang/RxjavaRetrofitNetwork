@@ -4,7 +4,7 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/RxjavaRetrofitNetwork.iml" filepath="$PROJECT_DIR$/RxjavaRetrofitNetwork.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-      <module fileurl="file://$PROJECT_DIR$/rxjavaretrofitnetworklib/rxjavaretrofitnetworklib.iml" filepath="$PROJECT_DIR$/rxjavaretrofitnetworklib/rxjavaretrofitnetworklib.iml" />
+      <module fileurl="file://$PROJECT_DIR$/networklib/networklib.iml" filepath="$PROJECT_DIR$/networklib/networklib.iml" />
     </modules>
   </component>
 </project>
