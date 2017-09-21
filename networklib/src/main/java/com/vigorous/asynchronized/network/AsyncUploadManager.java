@@ -15,6 +15,7 @@ import com.vigorous.asynchronized.network.exception.UploadParamInvaildException;
 import com.vigorous.asynchronized.network.listener.AsyncUploadListener;
 import com.vigorous.asynchronized.network.request.AsyncHttpManager;
 import com.vigorous.asynchronized.network.upload.AsyncUploadObserver;
+import com.vigorous.asynchronized.network.upload.UploadInterceptor;
 import com.vigorous.asynchronized.network.util.AndroidPermissionUtil;
 import com.vigorous.asynchronized.network.util.FileUtils;
 import com.vigorous.asynchronized.network.util.NetworkUtil;
@@ -123,9 +124,10 @@ public class AsyncUploadManager {
 
         AsyncUploadObserver<ResponseBody> asyncDownloadObserver = new AsyncUploadObserver<>(
                 uploadListener);
-
+        UploadInterceptor uploadInterceptor = new UploadInterceptor();
         okhttp3.OkHttpClient.Builder builder = new OkHttpClient.Builder()
-                .connectTimeout(config.getConnectionTime(), TimeUnit.SECONDS);
+                .connectTimeout(config.getConnectionTime(), TimeUnit.SECONDS)
+                .addInterceptor(uploadInterceptor);
 
         Retrofit retrofit = new Retrofit.Builder().client(builder.build())
                 .addConverterFactory(GsonConverterFactory.create())
