@@ -1,7 +1,9 @@
 package com.vigorous.asynchronized.network.data.download;
 
 import com.vigorous.asynchronized.network.listener.AsyncDownloadProgressListener;
+
 import java.io.IOException;
+
 import okhttp3.MediaType;
 import okhttp3.ResponseBody;
 import okio.Buffer;
@@ -89,9 +91,13 @@ public class DownloadResponseBody extends ResponseBody {
                 totalBytesRead += bytesRead != -1 ? bytesRead : 0;
                 // 回调，如果contentLength()不知道长度，会返回-1
                 progressListener.update(
-                        responseBody.contentLength()!=0?
-                                (totalBytesRead / responseBody.contentLength())*100:100,
+                        responseBody.contentLength() != 0
+                                ? ((totalBytesRead * 100)
+                                        / responseBody.contentLength())
+                                : 100,
                         bytesRead == -1);
+//                Log.e("download", "totalBytesRead" + totalBytesRead
+//                        + "totalLength" + responseBody.contentLength());
                 return bytesRead;
             }
         };
