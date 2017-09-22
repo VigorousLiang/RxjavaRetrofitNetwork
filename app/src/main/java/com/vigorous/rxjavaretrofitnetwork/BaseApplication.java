@@ -1,7 +1,6 @@
 package com.vigorous.rxjavaretrofitnetwork;
 
 import android.app.Application;
-
 import com.vigorous.asynchronized.network.request.AsyncHttpManager;
 import com.vigorous.asynchronized.network.config.NetWorkRequestConfiguration;
 import com.vigorous.asynchronized.network.util.LogUtil;
@@ -17,7 +16,7 @@ public class BaseApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-        //Debug 状态
+        // Debug 状态
         LogUtil.init(true);
         initNetWork();
     }
@@ -29,6 +28,7 @@ public class BaseApplication extends Application {
     }
 
     private void initNetWork() {
+        // 此处配置仅为针对Post/Get网络请求的配置参数，若需要下载或者上传文件，需另行配置
         AsyncHttpManager asyncHttpManager = AsyncHttpManager.getInstance();
         // 设置网络配置参数，若不指定其内有默认参数，亦可
         NetWorkRequestConfiguration netWorkRequestConfiguration = new NetWorkRequestConfiguration();
