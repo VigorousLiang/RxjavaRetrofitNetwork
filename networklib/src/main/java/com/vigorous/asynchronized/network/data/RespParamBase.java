@@ -8,7 +8,7 @@ import java.io.Serializable;
  * Created by Vigorous.Liang on 2017/9/15.
  */
 
-public class RespParamBase<T> implements Serializable {
+public class RespParamBase implements Serializable {
 
     @SerializedName(NetWorkRequestConst.SERIALIZED_RESPONSE_CODE)
     private String respCode="";

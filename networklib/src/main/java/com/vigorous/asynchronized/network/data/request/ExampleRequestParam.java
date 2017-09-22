@@ -11,13 +11,14 @@ import com.vigorous.asynchronized.network.data.RequestParamBase;
 public class ExampleRequestParam extends RequestParamBase {
 
     @SerializedName(NetWorkRequestConst.SERIALIZED_REQUEST_EXAMPLE_ONCE_NO)
-    private boolean once_no;
+    private boolean all;
 
-    public boolean isOnce_no() {
-        return once_no;
+    public boolean isAll() {
+        return all;
     }
 
-    public void setOnce_no(boolean once_no) {
-        this.once_no = once_no;
+    public void setAll(boolean all) {
+        this.all = all;
     }
+
 }

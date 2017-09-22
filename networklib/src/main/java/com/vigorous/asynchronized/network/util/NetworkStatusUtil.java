@@ -11,7 +11,7 @@ import java.util.regex.Pattern;
  * Created by Vigorous.Liang on 2017/9/19.
  */
 
-public class NetworkUtil {
+public class NetworkStatusUtil {
 
     // network type
     public static final int NETWORK_NONE = 0;

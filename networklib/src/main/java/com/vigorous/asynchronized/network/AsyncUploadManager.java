@@ -19,7 +19,7 @@ import com.vigorous.asynchronized.network.upload.AsyncUploadObserver;
 import com.vigorous.asynchronized.network.upload.UploadInterceptor;
 import com.vigorous.asynchronized.network.util.AndroidPermissionUtil;
 import com.vigorous.asynchronized.network.util.FileUtils;
-import com.vigorous.asynchronized.network.util.NetworkUtil;
+import com.vigorous.asynchronized.network.util.NetworkStatusUtil;
 import java.io.File;
 import java.lang.ref.SoftReference;
 import java.util.Iterator;
@@ -97,8 +97,8 @@ public class AsyncUploadManager {
             return;
         }
         // 若用户不允许在无wifi状态下上载且当前网络状态非wifi
-        if (!config.isContinueIfWifiUnavailable() && NetworkUtil
-                .getNetworkState(mContext) != NetworkUtil.NETWORK_WIFI) {
+        if (!config.isContinueIfWifiUnavailable() && NetworkStatusUtil
+                .getNetworkState(mContext) != NetworkStatusUtil.NETWORK_WIFI) {
             if (uploadListener != null) {
                 uploadListener.onError(new DownUploadWithoutWifiException(
                         NetWorkRequestConst.WIFI_UNAVAILABLE));
@@ -134,7 +134,7 @@ public class AsyncUploadManager {
         Retrofit retrofit = new Retrofit.Builder().client(builder.build())
                 .addConverterFactory(GsonConverterFactory.create())
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-                .baseUrl(NetworkUtil.getBasUrl(uploadInfo.getUrl())).build();
+                .baseUrl(NetworkStatusUtil.getBasUrl(uploadInfo.getUrl())).build();
 
         FileUploadService service = retrofit.create(FileUploadService.class);
         service.upload(uploadInfo.getUrl(), description, body)

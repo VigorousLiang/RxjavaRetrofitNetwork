@@ -66,12 +66,19 @@ public class AsyncHttpManager {
             builder.sslSocketFactory(createSSLSocketFactory())
                     .hostnameVerifier(new TrustAllHostnameVerifier());
         }
-
         OkHttpClient client = builder.build();
-        mRetrofit = new Retrofit.Builder().client(client)
-                .addConverterFactory(GsonConverterFactory.create())
-                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-                .baseUrl(baseUrl).build();
+        if (configuration.isEncrypted()) {
+            mRetrofit = new Retrofit.Builder().client(client)
+                    .addConverterFactory(
+                            RequestEncryptConverterFactory.create())
+                    .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+                    .baseUrl(baseUrl).build();
+        } else {
+            mRetrofit = new Retrofit.Builder().client(client)
+                    .addConverterFactory(GsonConverterFactory.create())
+                    .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+                    .baseUrl(baseUrl).build();
+        }
         isInit = true;
     }
 

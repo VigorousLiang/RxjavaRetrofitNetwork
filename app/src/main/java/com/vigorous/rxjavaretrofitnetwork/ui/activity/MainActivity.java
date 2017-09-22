@@ -81,7 +81,7 @@ public class MainActivity extends BaseActivity {
     }
     /**
      * network request success callback
-     * 
+     *
      * @param requestID
      * @param baseResponse
      */
@@ -129,7 +129,7 @@ public class MainActivity extends BaseActivity {
     private void sendPostRequestExample() {
         Log.e("http", "StartRequest");
         ExampleRequestParam exampleRequestParam = new ExampleRequestParam();
-        exampleRequestParam.setOnce_no(true);
+        exampleRequestParam.setAll(true);
         getAPIFactory().sendPostMessageForExample(
                 NetWorkRequestConst.REQUEST_EXAMPLE,
                 AsyncNetWorkAPIFactory.REQUEST_TYPE_CANCEL_WITH_ACTIVITY,

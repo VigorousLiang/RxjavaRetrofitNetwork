@@ -32,6 +32,7 @@ public class BaseApplication extends Application {
         AsyncHttpManager asyncHttpManager = AsyncHttpManager.getInstance();
         // 设置网络配置参数，若不指定其内有默认参数，亦可
         NetWorkRequestConfiguration netWorkRequestConfiguration = new NetWorkRequestConfiguration();
+        netWorkRequestConfiguration.setEncrypted(true);
         asyncHttpManager.init("http://www.izaodao.com/Api/",
                 netWorkRequestConfiguration);
     }

@@ -1,5 +1,7 @@
 package com.vigorous.asynchronized.network.data;
 
+import com.google.gson.Gson;
+
 import java.io.Serializable;
 
 /**
@@ -7,6 +9,7 @@ import java.io.Serializable;
  */
 
 public class RequestParamBase implements Serializable{
+
     private String reserve;
 
     public String getReserve() {
@@ -15,5 +18,11 @@ public class RequestParamBase implements Serializable{
 
     public void setReserve(String reserve) {
         this.reserve = reserve;
+    }
+
+    public String toString() {
+        Gson gson = new Gson();
+        String json = gson.toJson(this);
+        return json;
     }
 }

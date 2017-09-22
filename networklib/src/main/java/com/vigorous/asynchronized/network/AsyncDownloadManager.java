@@ -19,7 +19,7 @@ import com.vigorous.asynchronized.network.listener.AsyncDownloadProgressListener
 import com.vigorous.asynchronized.network.request.AsyncHttpManager;
 import com.vigorous.asynchronized.network.util.AndroidPermissionUtil;
 import com.vigorous.asynchronized.network.util.FileUtils;
-import com.vigorous.asynchronized.network.util.NetworkUtil;
+import com.vigorous.asynchronized.network.util.NetworkStatusUtil;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
@@ -104,8 +104,8 @@ public class AsyncDownloadManager {
             return;
         }
         // 若用户不允许在无wifi状态下下载且当前网络状态非wifi
-        if (!configuration.isContinueIfWifiUnavailable() && NetworkUtil
-                .getNetworkState(mContext) != NetworkUtil.NETWORK_WIFI) {
+        if (!configuration.isContinueIfWifiUnavailable() && NetworkStatusUtil
+                .getNetworkState(mContext) != NetworkStatusUtil.NETWORK_WIFI) {
             if (listener != null) {
                 listener.onError(new DownUploadWithoutWifiException(
                         NetWorkRequestConst.WIFI_UNAVAILABLE));
@@ -123,7 +123,7 @@ public class AsyncDownloadManager {
         Retrofit retrofit = new Retrofit.Builder().client(builder.build())
                 .addConverterFactory(GsonConverterFactory.create())
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-                .baseUrl(NetworkUtil.getBasUrl(downloadInfo.getUrl())).build();
+                .baseUrl(NetworkStatusUtil.getBasUrl(downloadInfo.getUrl())).build();
 
         HttpDownloadService service = retrofit
                 .create(HttpDownloadService.class);
