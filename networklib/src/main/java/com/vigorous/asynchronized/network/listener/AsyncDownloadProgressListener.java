@@ -8,18 +8,26 @@ public interface AsyncDownloadProgressListener {
     /**
      * 开始下载
      */
-     void onStart();
+    void onStart();
+
+    /**
+     * 终止下载
+     */
+    void onStop();
 
     /**
      * 完成下载
      */
-     void onComplete();
+    void onComplete();
+
     /**
      * 完成下载
      */
-     void onError(Throwable t);
+    void onError(Throwable t);
+
     /**
      * 下载进度回调
+     * 
      * @param progress
      * @param done
      */

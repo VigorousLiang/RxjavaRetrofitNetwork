@@ -123,7 +123,8 @@ public class AsyncDownloadManager {
         Retrofit retrofit = new Retrofit.Builder().client(builder.build())
                 .addConverterFactory(GsonConverterFactory.create())
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-                .baseUrl(NetworkStatusUtil.getBasUrl(downloadInfo.getUrl())).build();
+                .baseUrl(NetworkStatusUtil.getBasUrl(downloadInfo.getUrl()))
+                .build();
 
         HttpDownloadService service = retrofit
                 .create(HttpDownloadService.class);
@@ -162,6 +163,12 @@ public class AsyncDownloadManager {
                 .get();
         if (currentObserver != null) {
             currentObserver.getDisposable().dispose();
+            SoftReference listenerSoftReference = currentObserver.getCallback();
+            if (listenerSoftReference != null && listenerSoftReference
+                    .get() instanceof AsyncDownloadProgressListener) {
+                ((AsyncDownloadProgressListener) listenerSoftReference.get())
+                        .onStop();
+            }
             downloadList.remove(info.getUrl());
             FileUtils.deleteFile(info.getSavePath());
             return true;

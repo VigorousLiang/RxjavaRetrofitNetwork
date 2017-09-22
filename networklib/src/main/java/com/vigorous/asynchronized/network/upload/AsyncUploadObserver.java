@@ -1,9 +1,7 @@
 package com.vigorous.asynchronized.network.upload;
 
 import com.vigorous.asynchronized.network.listener.AsyncUploadListener;
-
 import java.lang.ref.SoftReference;
-
 import io.reactivex.Observer;
 import io.reactivex.annotations.NonNull;
 import io.reactivex.disposables.Disposable;
@@ -18,14 +16,17 @@ public class AsyncUploadObserver<T> implements Observer<T> {
 
     private Disposable disposable;
 
-    public AsyncUploadObserver(
-                               AsyncUploadListener asyncUploadListener) {
-        this.mUploadListener = new SoftReference<>(
-                asyncUploadListener);
+    public AsyncUploadObserver(AsyncUploadListener asyncUploadListener) {
+        this.mUploadListener = new SoftReference<>(asyncUploadListener);
 
     }
+
     public Disposable getDisposable() {
         return disposable;
+    }
+
+    public SoftReference<AsyncUploadListener> getCallback() {
+        return mUploadListener;
     }
 
     @Override

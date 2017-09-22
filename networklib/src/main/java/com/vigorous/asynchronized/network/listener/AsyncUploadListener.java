@@ -6,16 +6,20 @@ package com.vigorous.asynchronized.network.listener;
 
 public interface AsyncUploadListener {
     /**
-     * 开始下载
+     * 开始上传
      */
      void onStart();
+    /**
+     * 终止上传
+     */
+    void onStop();
 
     /**
-     * 完成下载
+     * 完成上传
      */
      void onComplete();
     /**
-     * 完成下载
+     * 上传失败
      */
      void onError(Throwable t);
 

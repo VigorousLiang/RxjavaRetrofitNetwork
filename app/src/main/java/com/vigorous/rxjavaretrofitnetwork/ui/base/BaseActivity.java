@@ -88,8 +88,8 @@ public abstract class BaseActivity extends FragmentActivity
     @Override
     public final void onDestroy() {
         onDestroyBeforeSuper();
-        super.onDestroy();
         cancleReq();
+        super.onDestroy();
         onDestroyAfterSuper();
     }
 

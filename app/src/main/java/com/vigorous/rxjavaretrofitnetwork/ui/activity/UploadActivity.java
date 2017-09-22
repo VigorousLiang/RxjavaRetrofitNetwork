@@ -59,7 +59,7 @@ public class UploadActivity extends BaseActivity {
         File outputFile = new File(
                 Environment.getExternalStoragePublicDirectory(
                         Environment.DIRECTORY_DOWNLOADS),
-                "test" + ".apk");
+                "aaa" + ".mp4");
         UploadInfo uploadInfo = new UploadInfo();
         uploadInfo.setFilePath(outputFile.getAbsolutePath());
         uploadInfo.setFileDesc("APK");
@@ -88,6 +88,11 @@ public class UploadActivity extends BaseActivity {
                     @Override
                     public void onStart() {
                         Log.e("upload", "start");
+                    }
+
+                    @Override
+                    public void onStop() {
+                        Log.e("upload", "stop");
                     }
 
                     @Override

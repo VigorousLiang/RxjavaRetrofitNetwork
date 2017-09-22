@@ -109,7 +109,8 @@ public class AsyncUploadManager {
         RequestBody requestFile = RequestBody
                 .create(MediaType.parse("multipart/form-data"), file);
 
-        UploadRequestBody uploadRequestBody=new UploadRequestBody(requestFile,uploadListener);
+        UploadRequestBody uploadRequestBody = new UploadRequestBody(requestFile,
+                uploadListener);
         // 获取文件后缀名
         String prefix = uploadInfo.getFilePath()
                 .substring(uploadInfo.getFilePath().lastIndexOf(".") + 1);
@@ -126,6 +127,9 @@ public class AsyncUploadManager {
 
         AsyncUploadObserver<ResponseBody> asyncDownloadObserver = new AsyncUploadObserver<>(
                 uploadListener);
+        uploadList.put(uploadInfo.getFilePath(),
+                new SoftReference<AsyncUploadObserver>(asyncDownloadObserver));
+
         UploadInterceptor uploadInterceptor = new UploadInterceptor();
         okhttp3.OkHttpClient.Builder builder = new OkHttpClient.Builder()
                 .connectTimeout(config.getConnectionTime(), TimeUnit.SECONDS)
@@ -134,7 +138,8 @@ public class AsyncUploadManager {
         Retrofit retrofit = new Retrofit.Builder().client(builder.build())
                 .addConverterFactory(GsonConverterFactory.create())
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-                .baseUrl(NetworkStatusUtil.getBasUrl(uploadInfo.getUrl())).build();
+                .baseUrl(NetworkStatusUtil.getBasUrl(uploadInfo.getUrl()))
+                .build();
 
         FileUploadService service = retrofit.create(FileUploadService.class);
         service.upload(uploadInfo.getUrl(), description, body)
@@ -143,8 +148,7 @@ public class AsyncUploadManager {
                 .observeOn(AndroidSchedulers.mainThread())
                 /* 数据回调 */
                 .subscribe(asyncDownloadObserver);
-        uploadList.put(uploadInfo.getFilePath(),
-                new SoftReference<AsyncUploadObserver>(asyncDownloadObserver));
+
     }
 
     /**
@@ -154,10 +158,20 @@ public class AsyncUploadManager {
         if (info == null) {
             return false;
         }
-        AsyncUploadObserver currentObserver = uploadList.get(info.getUrl())
-                .get();
+        SoftReference<AsyncUploadObserver> softReference = uploadList
+                .get(info.getFilePath());
+        // Task not exist
+        if (softReference == null) {
+            return true;
+        }
+        AsyncUploadObserver currentObserver = softReference.get();
         if (currentObserver != null) {
             currentObserver.getDisposable().dispose();
+            SoftReference<AsyncUploadListener> listenerSoftReference = currentObserver
+                    .getCallback();
+            if (listenerSoftReference != null) {
+                listenerSoftReference.get().onStop();
+            }
             uploadList.remove(info.getUrl());
             return true;
         } else {

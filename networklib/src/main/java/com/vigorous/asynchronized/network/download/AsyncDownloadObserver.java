@@ -20,16 +20,22 @@ public class AsyncDownloadObserver<T> implements Observer<T> {
     private Disposable disposable;
 
     public AsyncDownloadObserver(DownloadInfo downInfo,
-                                 AsyncDownloadProgressListener asyncDownloadProgressListener) {
+            AsyncDownloadProgressListener asyncDownloadProgressListener) {
         this.mSubscriberOnNextListener = new SoftReference<>(
                 asyncDownloadProgressListener);
         this.downInfo = downInfo;
     }
-    public DownloadInfo getDownInfo(){
+
+    public DownloadInfo getDownInfo() {
         return downInfo;
     }
+
     public Disposable getDisposable() {
         return disposable;
+    }
+
+    public SoftReference<AsyncDownloadProgressListener> getCallback() {
+        return mSubscriberOnNextListener;
     }
 
     @Override
