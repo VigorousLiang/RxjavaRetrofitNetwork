@@ -1,5 +1,7 @@
 package com.vigorous.asynchronized.network;
 
+import android.content.Context;
+
 import com.vigorous.asynchronized.network.api.HttpRequestService;
 import com.vigorous.asynchronized.network.data.request.ExampleRequestParam;
 import com.vigorous.asynchronized.network.data.response.ExampleEntity;
@@ -7,9 +9,11 @@ import com.vigorous.asynchronized.network.exception.AsyncHttpManagerNotInitExcep
 import com.vigorous.asynchronized.network.listener.AsyncRequestListener;
 import com.vigorous.asynchronized.network.request.AsyncHttpManager;
 import com.vigorous.asynchronized.network.request.AsyncSubscriberCreater;
+
 import java.lang.ref.SoftReference;
 import java.util.Iterator;
 import java.util.concurrent.ConcurrentLinkedQueue;
+
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;

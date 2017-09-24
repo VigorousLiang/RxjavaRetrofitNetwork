@@ -29,7 +29,8 @@ public class BaseApplication extends Application {
 
     private void initNetWork() {
         // 此处配置仅为针对Post/Get网络请求的配置参数，若需要下载或者上传文件，需另行配置
-        AsyncHttpManager asyncHttpManager = AsyncHttpManager.getInstance();
+        AsyncHttpManager asyncHttpManager = AsyncHttpManager
+                .getInstance(getApplicationContext());
         // 设置网络配置参数，若不指定其内有默认参数，亦可
         NetWorkRequestConfiguration netWorkRequestConfiguration = new NetWorkRequestConfiguration();
         netWorkRequestConfiguration.setEncrypted(true);

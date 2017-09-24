@@ -1,9 +1,11 @@
 package com.vigorous.asynchronized.network.request;
 
+import android.content.Context;
 import android.text.TextUtils;
 import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import com.vigorous.asynchronized.network.api.HttpRequestService;
 import com.vigorous.asynchronized.network.config.NetWorkRequestConfiguration;
+import com.vigorous.asynchronized.network.cookie.CookieManager;
 import com.vigorous.asynchronized.network.exception.AsyncHttpManagerNotInitException;
 import com.vigorous.asynchronized.network.https.TrustAllCerts;
 import com.vigorous.asynchronized.network.https.TrustAllHostnameVerifier;
@@ -23,20 +25,24 @@ import retrofit2.converter.gson.GsonConverterFactory;
  */
 
 public class AsyncHttpManager {
+    private Context mContext;
     private volatile static AsyncHttpManager INSTANCE;
     private volatile boolean isInit = false;
     private Retrofit mRetrofit;
 
     // 构造方法私有
-    private AsyncHttpManager() {
+    private AsyncHttpManager(Context context) {
+        if (context != null) {
+            mContext = context.getApplicationContext();
+        }
     }
 
     // 获取单例
-    public static AsyncHttpManager getInstance() {
+    public static AsyncHttpManager getInstance(Context context) {
         if (INSTANCE == null) {
             synchronized (AsyncHttpManager.class) {
                 if (INSTANCE == null) {
-                    INSTANCE = new AsyncHttpManager();
+                    INSTANCE = new AsyncHttpManager(context);
                 }
             }
         }
@@ -58,8 +64,10 @@ public class AsyncHttpManager {
         logInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
 
         okhttp3.OkHttpClient.Builder builder = new OkHttpClient.Builder()
-                .addNetworkInterceptor(logInterceptor).connectTimeout(
-                        configuration.getConnectionTime(), TimeUnit.SECONDS);
+                .addNetworkInterceptor(logInterceptor)
+                .connectTimeout(configuration.getConnectionTime(),
+                        TimeUnit.SECONDS)
+                .cookieJar(new CookieManager(mContext));
 
         // Deal with https request(trust all certificate here)
         if (baseUrl.startsWith("https") || baseUrl.startsWith("HTTPS")) {
