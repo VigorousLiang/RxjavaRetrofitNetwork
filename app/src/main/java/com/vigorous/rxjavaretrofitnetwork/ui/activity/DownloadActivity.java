@@ -95,6 +95,11 @@ public class DownloadActivity extends BaseActivity {
                     }
 
                     @Override
+                    public void onStop() {
+                        Log.e("download", "stop");
+                    }
+
+                    @Override
                     public void onComplete() {
                         Log.e("download", "complete");
                     }

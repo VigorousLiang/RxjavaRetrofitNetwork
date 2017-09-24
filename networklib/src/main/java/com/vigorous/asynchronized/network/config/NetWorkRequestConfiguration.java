@@ -6,21 +6,26 @@ package com.vigorous.asynchronized.network.config;
 
 public class NetWorkRequestConfiguration {
 
-    /*是否需要加密*/
+    /* 是否需要加密 */
     private boolean isEncrypted = false;
+
     /* 超时时间-默认6秒 */
     private int connectionTime = 6;
-    /*是否需要缓存处理*/
-    private boolean cache;
-    /* 有网情况下的本地缓存时间默认60秒 */
+
+    /* 是否需要缓存处理 */
+    private boolean cache = false;
+    /* 当cache为true时才生效，有网情况下的本地缓存时间默认60秒 */
     private int cookieNetWorkTime = 60;
-    /* 无网络的情况下本地缓存时间默认30天 */
+    /* 当cache为true时才生效，无网络的情况下本地缓存时间默认30天 */
     private int cookieNoNetWorkTime = 24 * 60 * 60 * 30;
-    /* 失败后retry次数 */
+
+    /* 请求失败是否重试 */
+    private boolean isRetry = false;
+    /* 当isRetry为true时才生效，失败后retry次数 */
     private int retryCount = 1;
-    /* 失败后retry延迟 */
+    /* 当isRetry为true时才生效，失败后retry延迟 */
     private long retryDelay = 100;
-    /* 失败后retry叠加延迟 */
+    /* 当isRetry为true时才生效，失败后retry叠加延迟 */
     private long retryIncreaseDelay = 10;
 
     public int getConnectionTime() {
@@ -55,6 +60,10 @@ public class NetWorkRequestConfiguration {
         return cache;
     }
 
+    public boolean isRetry() {
+        return isRetry;
+    }
+
     public NetWorkRequestConfiguration setConnectionTime(int connectionTime) {
         this.connectionTime = connectionTime;
         return this;
@@ -65,7 +74,8 @@ public class NetWorkRequestConfiguration {
         return this;
     }
 
-    public NetWorkRequestConfiguration setCookieNetWorkTime(int cookieNetWorkTime) {
+    public NetWorkRequestConfiguration setCookieNetWorkTime(
+            int cookieNetWorkTime) {
         this.cookieNetWorkTime = cookieNetWorkTime;
         return this;
     }
@@ -86,13 +96,19 @@ public class NetWorkRequestConfiguration {
         return this;
     }
 
-    public NetWorkRequestConfiguration setRetryIncreaseDelay(long retryIncreaseDelay) {
+    public NetWorkRequestConfiguration setRetryIncreaseDelay(
+            long retryIncreaseDelay) {
         this.retryIncreaseDelay = retryIncreaseDelay;
         return this;
     }
 
     public NetWorkRequestConfiguration setEncrypted(boolean encrypted) {
         isEncrypted = encrypted;
+        return this;
+    }
+
+    public NetWorkRequestConfiguration setRetry(boolean retry) {
+        isRetry = retry;
         return this;
     }
 }

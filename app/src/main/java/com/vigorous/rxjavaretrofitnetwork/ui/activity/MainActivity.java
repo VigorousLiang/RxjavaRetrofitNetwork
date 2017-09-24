@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Button;
-
 import com.vigorous.asynchronized.network.AsyncNetWorkAPIFactory;
 import com.vigorous.asynchronized.network.data.NetWorkRequestConst;
 import com.vigorous.asynchronized.network.data.RequestId;
@@ -14,10 +13,8 @@ import com.vigorous.asynchronized.network.data.response.ExampleEntity;
 import com.vigorous.asynchronized.network.data.response.Subject;
 import com.vigorous.rxjavaretrofitnetwork.R;
 import com.vigorous.rxjavaretrofitnetwork.ui.base.BaseActivity;
-
 import java.util.Iterator;
 import java.util.List;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -69,16 +66,18 @@ public class MainActivity extends BaseActivity {
 
     @OnClick(R.id.btn_download)
     void toDownload() {
-        Intent intent=new Intent();
-        intent.setClass(MainActivity.this,DownloadActivity.class);
+        Intent intent = new Intent();
+        intent.setClass(MainActivity.this, DownloadActivity.class);
         startActivity(intent);
     }
+
     @OnClick(R.id.btn_upload)
     void toUpload() {
-        Intent intent=new Intent();
-        intent.setClass(MainActivity.this,UploadActivity.class);
+        Intent intent = new Intent();
+        intent.setClass(MainActivity.this, UploadActivity.class);
         startActivity(intent);
     }
+
     /**
      * network request success callback
      *
@@ -130,7 +129,7 @@ public class MainActivity extends BaseActivity {
         Log.e("http", "StartRequest");
         ExampleRequestParam exampleRequestParam = new ExampleRequestParam();
         exampleRequestParam.setAll(true);
-        getAPIFactory().sendPostMessageForExample(
+        getAPIFactory().sendPostMessageForExample(getApplicationContext(),
                 NetWorkRequestConst.REQUEST_EXAMPLE,
                 AsyncNetWorkAPIFactory.REQUEST_TYPE_CANCEL_WITH_ACTIVITY,
                 exampleRequestParam);

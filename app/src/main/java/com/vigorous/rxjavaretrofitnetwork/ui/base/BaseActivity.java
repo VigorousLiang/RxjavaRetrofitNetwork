@@ -19,7 +19,8 @@ public abstract class BaseActivity extends FragmentActivity
 
     // 初始化Api启动器类
     private void initFactory() {
-        asyncNetWorkAPIFactory = new AsyncNetWorkAPIFactory(this);
+        asyncNetWorkAPIFactory = new AsyncNetWorkAPIFactory(
+                getApplicationContext(), this);
     }
 
     @Override
@@ -216,12 +217,14 @@ public abstract class BaseActivity extends FragmentActivity
             String errorDesc) {
 
     }
+
     /**
      * 由子类重写设置id
      */
-    protected void setContentView(){
+    protected void setContentView() {
 
     }
+
     /**
      * 由子类重写 初始化控件
      */
