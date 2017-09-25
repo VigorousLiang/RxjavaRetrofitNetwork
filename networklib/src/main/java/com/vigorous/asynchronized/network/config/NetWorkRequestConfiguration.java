@@ -14,10 +14,10 @@ public class NetWorkRequestConfiguration {
 
     /* 是否需要缓存处理 */
     private boolean cache = false;
-    /* 当cache为true时才生效，有网情况下的本地缓存时间默认60秒 */
-    private int cookieNetWorkTime = 60;
-    /* 当cache为true时才生效，无网络的情况下本地缓存时间默认30天 */
-    private int cookieNoNetWorkTime = 24 * 60 * 60 * 30;
+    /* 缓存区大小 */
+    private int cacheSize = 10;
+    /* 缓存数据生命周期长度（秒） */
+    private int cacheAgeLimit = 10;
 
     /* 请求失败是否重试 */
     private boolean isRetry = false;
@@ -30,14 +30,6 @@ public class NetWorkRequestConfiguration {
 
     public int getConnectionTime() {
         return connectionTime;
-    }
-
-    public int getCookieNetWorkTime() {
-        return cookieNetWorkTime;
-    }
-
-    public int getCookieNoNetWorkTime() {
-        return cookieNoNetWorkTime;
     }
 
     public int getRetryCount() {
@@ -60,6 +52,14 @@ public class NetWorkRequestConfiguration {
         return cache;
     }
 
+    public int getCacheSize() {
+        return cacheSize;
+    }
+
+    public int getCacheAgeLimit() {
+        return cacheAgeLimit;
+    }
+
     public boolean isRetry() {
         return isRetry;
     }
@@ -71,18 +71,6 @@ public class NetWorkRequestConfiguration {
 
     public NetWorkRequestConfiguration setCache(boolean cache) {
         this.cache = cache;
-        return this;
-    }
-
-    public NetWorkRequestConfiguration setCookieNetWorkTime(
-            int cookieNetWorkTime) {
-        this.cookieNetWorkTime = cookieNetWorkTime;
-        return this;
-    }
-
-    public NetWorkRequestConfiguration setCookieNoNetWorkTime(
-            int cookieNoNetWorkTime) {
-        this.cookieNoNetWorkTime = cookieNoNetWorkTime;
         return this;
     }
 
@@ -109,6 +97,16 @@ public class NetWorkRequestConfiguration {
 
     public NetWorkRequestConfiguration setRetry(boolean retry) {
         isRetry = retry;
+        return this;
+    }
+
+    public NetWorkRequestConfiguration setCacheSize(int cacheSize) {
+        this.cacheSize = cacheSize;
+        return this;
+    }
+
+    public NetWorkRequestConfiguration setCacheAgeLimit(int cacheAgeLimit) {
+        this.cacheAgeLimit = cacheAgeLimit;
         return this;
     }
 }

@@ -16,7 +16,8 @@ public class RequestRetryInterceptor implements Interceptor {
     private int currentRetryTime = 0;
 
     public RequestRetryInterceptor(int maxRetry) {
-        this.maxRetryTimes = maxRetry;
+        // 通过interceptor方式最大重试次数上限为3次
+        this.maxRetryTimes = maxRetry > 3 ? 3 : maxRetry;
     }
 
     @Override

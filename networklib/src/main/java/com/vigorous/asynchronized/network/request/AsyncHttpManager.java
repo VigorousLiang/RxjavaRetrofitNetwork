@@ -10,11 +10,13 @@ import com.vigorous.asynchronized.network.exception.AsyncHttpManagerNotInitExcep
 import com.vigorous.asynchronized.network.https.TrustAllCerts;
 import com.vigorous.asynchronized.network.https.TrustAllHostnameVerifier;
 import com.vigorous.asynchronized.network.util.HttpLogger;
+import java.io.File;
 import java.security.SecureRandom;
 import java.util.concurrent.TimeUnit;
 import javax.net.ssl.SSLContext;
 import javax.net.ssl.SSLSocketFactory;
 import javax.net.ssl.TrustManager;
+import okhttp3.Cache;
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
@@ -68,11 +70,26 @@ public class AsyncHttpManager {
                 .connectTimeout(configuration.getConnectionTime(),
                         TimeUnit.SECONDS)
                 .cookieJar(new CookieManager(mContext));
+        // Deal with cache
+        if (configuration.isCache() && configuration.getCacheSize() > 0
+                && configuration.getCacheAgeLimit() >= 0) {
+            // 缓存文件夹
+            File cacheFile = new File(mContext.getExternalCacheDir().toString(),
+                    "cache");
+            // 设置缓存大小
+            int cacheSize = configuration.getCacheSize() * 1024 * 1024;
+            // 创建缓存对象
+            Cache cache = new Cache(cacheFile, cacheSize);
+            builder.cache(cache);
+            builder.addInterceptor(new RequestCacheInterceptor(
+                    configuration.getCacheAgeLimit()));
+        }
         // Deal with request retry without delay
         if (configuration.isRetry() && configuration.getRetryCount() > 0) {
             builder.addInterceptor(
                     new RequestRetryInterceptor(configuration.getRetryCount()));
         }
+
         // Deal with https request(trust all certificate here)
         if (baseUrl.startsWith("https") || baseUrl.startsWith("HTTPS")) {
             builder.sslSocketFactory(createSSLSocketFactory())
