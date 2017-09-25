@@ -23,10 +23,10 @@ public class NetWorkRequestConfiguration {
     private boolean isRetry = false;
     /* 当isRetry为true时才生效，失败后retry次数 */
     private int retryCount = 1;
-    /* 当isRetry为true时才生效，失败后retry延迟 */
-    private long retryDelay = 100;
-    /* 当isRetry为true时才生效，失败后retry叠加延迟 */
-    private long retryIncreaseDelay = 10;
+    /* 当isRetry为true时才生效，失败后retry延迟(毫秒) */
+    private long retryDelay = 0;
+    /* 当isRetry为true时才生效，失败后retry叠加延迟(毫秒) */
+    private long retryIncreaseDelay = 0;
 
     public int getConnectionTime() {
         return connectionTime;

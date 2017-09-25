@@ -68,25 +68,31 @@ public class AsyncHttpManager {
                 .connectTimeout(configuration.getConnectionTime(),
                         TimeUnit.SECONDS)
                 .cookieJar(new CookieManager(mContext));
-
+        // Deal with request retry without delay
+        if (configuration.isRetry() && configuration.getRetryCount() > 0) {
+            builder.addInterceptor(
+                    new RequestRetryInterceptor(configuration.getRetryCount()));
+        }
         // Deal with https request(trust all certificate here)
         if (baseUrl.startsWith("https") || baseUrl.startsWith("HTTPS")) {
             builder.sslSocketFactory(createSSLSocketFactory())
                     .hostnameVerifier(new TrustAllHostnameVerifier());
         }
         OkHttpClient client = builder.build();
+        Retrofit.Builder retrofitBuilder = new Retrofit.Builder().client(client)
+                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+                .baseUrl(baseUrl);
+
+        // Deal with request encrypt
         if (configuration.isEncrypted()) {
-            mRetrofit = new Retrofit.Builder().client(client)
-                    .addConverterFactory(
-                            RequestEncryptConverterFactory.create())
-                    .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-                    .baseUrl(baseUrl).build();
+            retrofitBuilder.addConverterFactory(
+                    RequestEncryptConverterFactory.create());
         } else {
-            mRetrofit = new Retrofit.Builder().client(client)
-                    .addConverterFactory(GsonConverterFactory.create())
-                    .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-                    .baseUrl(baseUrl).build();
+            retrofitBuilder.addConverterFactory(GsonConverterFactory.create());
         }
+
+        mRetrofit = retrofitBuilder.build();
+
         isInit = true;
     }
 
